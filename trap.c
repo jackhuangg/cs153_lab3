@@ -77,7 +77,12 @@ void trap(struct trapframe *tf)
             cpuid(), tf->cs, tf->eip);
     lapiceoi();
     break;
+      
+  //adding a new case for page faults 
+      
   case T_PGFLT:;
+    //rcr2() gets the address that caused the page fault
+    //if its greater than top of stack then obviously thats not valid
     if (rcr2() > KERNBASE - 1)
     {
       cprintf("Accessing page that is not allocated/mapped, page fault occured\n");
