@@ -88,6 +88,7 @@ void trap(struct trapframe *tf)
       cprintf("Accessing page that is not allocated/mapped, page fault occured\n");
       exit();
     }
+    //if you can allocate this range of pages, then do so and increment pages field
     if (allocuvm(myproc()->pgdir, PGROUNDDOWN(rcr2()), PGROUNDDOWN(rcr2()) + PGSIZE) != 0)
     {
       cprintf("Increasing page size\n");
