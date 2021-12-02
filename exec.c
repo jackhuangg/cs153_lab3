@@ -67,13 +67,18 @@ int exec(char *path, char **argv)
   // where the stack is created
 
   sz = PGROUNDUP(sz);
+  
   // pgrounddown rounds to lower multiple of pgsize
+  // grow the stack from pgrounddown(kernbase-1) to kernbase-1
+  //basically identifying where the stack starts to grow and grow up from there
   if ((allocuvm(pgdir, PGROUNDDOWN(KERNBASE - 1), KERNBASE - 1)) == 0)
     goto bad;
   // where the stack creation code ends
+  
+  //initialize stack pointer to top word of the stack
   sp = KERNBASE - 1;
+  //initialize pages to 1 since we created a page
   curproc->pages = 1;
-  // new top of stack
 
   // Push argument strings, prepare rest of stack in ustack.
   for (argc = 0; argv[argc]; argc++)
