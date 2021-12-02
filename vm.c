@@ -340,7 +340,7 @@ copyuvm(pde_t *pgdir, uint sz)
     if (mappages(d, (void *)i, PGSIZE, V2P(mem), flags) < 0)
       goto bad;
   }
-
+  //goes from the top to the end of the current page allocations, decrementing by page size
   for (i = PGROUNDDOWN(KERNBASE - 1); i > PGROUNDDOWN(KERNBASE - 1) - (curproc->pages) * PGSIZE; i -= PGSIZE)
   {
     if ((pte = walkpgdir(pgdir, (void *)i, 0)) == 0)
