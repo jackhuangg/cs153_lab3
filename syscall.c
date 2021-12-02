@@ -51,6 +51,9 @@ int argint(int n, int *ip)
 // Fetch the nth word-sized system call argument as a pointer
 // to a block of memory of size bytes.  Check that the pointer
 // lies within the process address space.
+
+//change all occurences of curproc->sz to kernbase-1 since we are now trying to point to the top of the stack
+
 int argptr(int n, char **pp, int size)
 {
   int i;
