@@ -204,6 +204,8 @@ int fork(void)
   np->sz = curproc->sz;
   np->parent = curproc;
   *np->tf = *curproc->tf;
+  
+  //want to copy pages over when creating a new process
   np->pages = curproc->pages;
 
   // Clear %eax so that fork returns 0 in the child.
